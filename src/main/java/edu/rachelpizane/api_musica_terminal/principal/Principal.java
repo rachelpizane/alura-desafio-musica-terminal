@@ -1,15 +1,22 @@
 package edu.rachelpizane.api_musica_terminal.principal;
 
+import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 
+import edu.rachelpizane.api_musica_terminal.entity.Artista;
+import edu.rachelpizane.api_musica_terminal.entity.Musica;
 import edu.rachelpizane.api_musica_terminal.repository.ArtistaRepository;
+import edu.rachelpizane.api_musica_terminal.repository.MusicaRepository;
 
 public class Principal {
     private static Scanner scanner = new Scanner(System.in);
-    private ArtistaRepository repository;
+    private ArtistaRepository artistaRepository;
+    private MusicaRepository musicaRepository;
 
-    public Principal(ArtistaRepository repository) {
-        this.repository = repository;
+    public Principal(ArtistaRepository artistaRepository, MusicaRepository musicaRepository) {
+        this.artistaRepository = artistaRepository;
+        this.musicaRepository = musicaRepository;
     }
 
     public void exibirMenu() {
@@ -18,7 +25,7 @@ public class Principal {
         while (!opcao.equals("x")) {
             scanner = new Scanner(System.in);
             String menu = """
-                    - MENU ----
+                    \n- MENU ----
                     1 - Cadastar artistas
                     2 - Cadastrar música
                     3 - Listar todas as músicas
@@ -61,28 +68,78 @@ public class Principal {
         }
     }
 
-    private static void listarTodasMusicas() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'listarTodasMusicas'");
+    private void listarTodasMusicas() {
+        System.out.println("- LISTA DE TODAS AS MUSICAS -----");
+        List<Musica> musicasEncontradas = musicaRepository.findAll();
+
+        if(musicasEncontradas.isEmpty()){
+            System.out.println("Nenhuma música cadastrada");
+        }
+
+        musicasEncontradas.forEach(musica -> {
+            System.out.printf("Nome: %s - Artista: %s%n", musica.getNome(), musica.getArtista().getNome());
+        });
     }
 
-    private static void pesquisarDadosSobreArtista() {
+    private void pesquisarDadosSobreArtista() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'pesquisarDadosSobreArtista'");
     }
 
-    private static void listarMusicasPorArtista() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'listarMusicasPorArtista'");
+    private void listarMusicasPorArtista() {
+        System.out.println("- LISTA DE TODAS AS MUSICAS POR ARTISTA -----");
+        System.out.print("Digite o nome do artista: ");
+        String nomeArtista = scanner.nextLine();
+
+        List<Musica> musicasEncontradas = musicaRepository.findAllByArtistaNomeContainingIgnoreCase(nomeArtista);
+
+        if(musicasEncontradas.isEmpty()){
+            System.out.println("Nenhuma música encontra para este artista");
+        }
+
+        System.out.println("\nMúsicas do(a) artista " + musicasEncontradas.get(0).getArtista().getNome());
+
+        musicasEncontradas.forEach(musica -> {
+            System.out.printf("  Nome: %s %n", musica.getNome());
+        });
     }
 
-    private static void cadastrarMusica() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'cadastrarMusica'");
+    private void cadastrarMusica() {
+        System.out.println("- CADASTRAR MUSICA -----");
+        System.out.print("Digite o nome do artista: ");
+        String nomeArtista = scanner.nextLine();
+
+        Optional<Artista> artistaBuscado = artistaRepository.findByNomeIgnoreCase(nomeArtista);
+
+        if(artistaBuscado.isEmpty()){
+            System.out.println("Artista não identificado para o cadastro da música");
+            return;
+        }
+
+        Artista artistaEncontrado = artistaBuscado.get();
+
+        System.out.print("Digite o nome da música: ");
+        String nomeMusica= scanner.nextLine();
+
+        Musica novaMusica = new Musica(nomeMusica);
+
+        artistaEncontrado.adicionarMusica(novaMusica);
+
+        artistaRepository.save(artistaEncontrado);
+        System.out.println(">> Música salva com sucesso!");
     }
 
-    private static void cadastrarArtista() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'cadastrarArtista'");
+    private void cadastrarArtista() {
+        System.out.println("- CADASTRAR ARTISTA -----");
+        System.out.print("Digite o nome do artista: ");
+        String nomeArtista = scanner.nextLine();
+        
+        System.out.print("Digite tipo de artista (Solo/Dupla/Banda): ");
+        String tipoArtista = scanner.nextLine();
+
+        Artista novoArtista = new Artista(nomeArtista, tipoArtista);
+
+        artistaRepository.save(novoArtista);
+        System.out.println(">> Cadastro salvo com sucesso!");
     }
 }
