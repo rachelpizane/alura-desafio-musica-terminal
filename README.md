@@ -27,8 +27,8 @@ Em andamento
 
 1. **Clone o repositório**:
    ```bash
-   git clone https://github.com/seu-usuario/api-musica-terminal.git
-   cd api-musica-terminal
+   git clone https://github.com/rachelpizane/alura-desafio-musica-terminal.git
+   cd alura-desafio-musica-terminal
    ```
     <br>
 
