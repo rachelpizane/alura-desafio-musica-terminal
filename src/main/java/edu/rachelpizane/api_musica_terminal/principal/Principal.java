@@ -6,8 +6,11 @@ import java.util.Scanner;
 
 import edu.rachelpizane.api_musica_terminal.entity.Artista;
 import edu.rachelpizane.api_musica_terminal.entity.Musica;
+import edu.rachelpizane.api_musica_terminal.records.DescricaoArtista;
 import edu.rachelpizane.api_musica_terminal.repository.ArtistaRepository;
 import edu.rachelpizane.api_musica_terminal.repository.MusicaRepository;
+import edu.rachelpizane.api_musica_terminal.services.ConversorDados;
+import edu.rachelpizane.api_musica_terminal.services.WikipediaService;
 
 public class Principal {
     private static Scanner scanner = new Scanner(System.in);
@@ -26,7 +29,7 @@ public class Principal {
             scanner = new Scanner(System.in);
             String menu = """
                     \n- MENU ----
-                    1 - Cadastar artistas
+                    1 - Cadastar artista
                     2 - Cadastrar música
                     3 - Listar todas as músicas
                     4 - Listar músicas por artista
@@ -82,8 +85,28 @@ public class Principal {
     }
 
     private void pesquisarDadosSobreArtista() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'pesquisarDadosSobreArtista'");
+        System.out.println(" - MAIS INFORMAÇÕES SOBRE O(A) ARTISTA -----------");
+        System.out.print("Digite o nome do artista: ");
+        String nomeArtista = scanner.nextLine();
+
+        Optional<Artista> artistaBuscado = artistaRepository.findByNomeIgnoreCase(nomeArtista);
+
+        if(artistaBuscado.isEmpty()){
+            System.out.println("Artista não identificado");
+            return;
+        }
+
+        Artista artistaEncontrado = artistaBuscado.get();
+
+        String jsonCompletoWikipedia = WikipediaService.teste(artistaEncontrado.getNome());
+        DescricaoArtista descricao = ConversorDados.conversor(jsonCompletoWikipedia, DescricaoArtista.class);
+
+        if(descricao == null) {
+            System.out.println("Descrição não encontrada");
+            return;
+        }
+        
+        System.out.println(descricao.descricaoArtista());
     }
 
     private void listarMusicasPorArtista() {
