@@ -1,4 +1,4 @@
-# API de Música - Terminal
+# Música - Terminal
 
 ## Sobre o projeto
 

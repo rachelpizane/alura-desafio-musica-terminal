@@ -1,4 +1,4 @@
-package edu.rachelpizane.api_musica_terminal.entity;
+package edu.rachelpizane.musica_terminal.entity;
 
 public enum TipoArtista {
     SOLO("solo"),

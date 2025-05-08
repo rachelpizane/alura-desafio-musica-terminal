@@ -1,4 +1,4 @@
-package edu.rachelpizane.api_musica_terminal.entity;
+package edu.rachelpizane.musica_terminal.entity;
 
 import java.util.ArrayList;
 import java.util.List;

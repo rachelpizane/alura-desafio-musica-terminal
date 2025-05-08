@@ -1,4 +1,4 @@
-package edu.rachelpizane.api_musica_terminal.services;
+package edu.rachelpizane.musica_terminal.services;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

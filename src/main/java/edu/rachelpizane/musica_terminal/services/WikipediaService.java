@@ -1,4 +1,4 @@
-package edu.rachelpizane.api_musica_terminal.services;
+package edu.rachelpizane.musica_terminal.services;
 
 import java.io.IOException;
 import java.net.URI;
@@ -7,7 +7,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 public class WikipediaService {
-    public static String teste(String nomeArtista) {
+    public static String buscarInformacoesArtista(String nomeArtista) {
         String apiUrlPadrao = "https://pt.wikipedia.org/api/rest_v1/page/summary/";
         String pesquisaFormata = nomeArtista.replace(" ", "_");
 
@@ -26,7 +26,7 @@ public class WikipediaService {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        
+
         return response.body();
     }
 

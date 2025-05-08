@@ -1,16 +1,16 @@
-package edu.rachelpizane.api_musica_terminal.principal;
+package edu.rachelpizane.musica_terminal.principal;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
-import edu.rachelpizane.api_musica_terminal.entity.Artista;
-import edu.rachelpizane.api_musica_terminal.entity.Musica;
-import edu.rachelpizane.api_musica_terminal.records.DescricaoArtista;
-import edu.rachelpizane.api_musica_terminal.repository.ArtistaRepository;
-import edu.rachelpizane.api_musica_terminal.repository.MusicaRepository;
-import edu.rachelpizane.api_musica_terminal.services.ConversorDados;
-import edu.rachelpizane.api_musica_terminal.services.WikipediaService;
+import edu.rachelpizane.musica_terminal.entity.Artista;
+import edu.rachelpizane.musica_terminal.entity.Musica;
+import edu.rachelpizane.musica_terminal.records.DescricaoArtista;
+import edu.rachelpizane.musica_terminal.repository.ArtistaRepository;
+import edu.rachelpizane.musica_terminal.repository.MusicaRepository;
+import edu.rachelpizane.musica_terminal.services.ConversorDados;
+import edu.rachelpizane.musica_terminal.services.WikipediaService;
 
 public class Principal {
     private static Scanner scanner = new Scanner(System.in);
@@ -98,7 +98,7 @@ public class Principal {
 
         Artista artistaEncontrado = artistaBuscado.get();
 
-        String jsonCompletoWikipedia = WikipediaService.teste(artistaEncontrado.getNome());
+        String jsonCompletoWikipedia = WikipediaService.buscarInformacoesArtista(artistaEncontrado.getNome());
         DescricaoArtista descricao = ConversorDados.conversor(jsonCompletoWikipedia, DescricaoArtista.class);
 
         if(descricao == null) {
