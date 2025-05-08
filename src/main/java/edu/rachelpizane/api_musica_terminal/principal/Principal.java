@@ -2,10 +2,17 @@ package edu.rachelpizane.api_musica_terminal.principal;
 
 import java.util.Scanner;
 
+import edu.rachelpizane.api_musica_terminal.repository.ArtistaRepository;
+
 public class Principal {
     private static Scanner scanner = new Scanner(System.in);
+    private ArtistaRepository repository;
 
-    public static void exibirMenu() {
+    public Principal(ArtistaRepository repository) {
+        this.repository = repository;
+    }
+
+    public void exibirMenu() {
         String opcao = "";
 
         while (!opcao.equals("x")) {
