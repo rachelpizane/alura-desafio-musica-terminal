@@ -3,7 +3,7 @@ package edu.rachelpizane.musica_terminal.services;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class ConversorDados {
+public class ConversorDadosService {
     private static ObjectMapper mapper = new ObjectMapper();
 
     public static <T> T conversor(String json, Class<T> classe){

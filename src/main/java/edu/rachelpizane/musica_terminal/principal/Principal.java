@@ -6,10 +6,10 @@ import java.util.Scanner;
 
 import edu.rachelpizane.musica_terminal.entity.Artista;
 import edu.rachelpizane.musica_terminal.entity.Musica;
-import edu.rachelpizane.musica_terminal.records.DescricaoArtista;
+import edu.rachelpizane.musica_terminal.record.DescricaoArtista;
 import edu.rachelpizane.musica_terminal.repository.ArtistaRepository;
 import edu.rachelpizane.musica_terminal.repository.MusicaRepository;
-import edu.rachelpizane.musica_terminal.services.ConversorDados;
+import edu.rachelpizane.musica_terminal.services.ConversorDadosService;
 import edu.rachelpizane.musica_terminal.services.WikipediaService;
 
 public class Principal {
@@ -99,7 +99,7 @@ public class Principal {
         Artista artistaEncontrado = artistaBuscado.get();
 
         String jsonCompletoWikipedia = WikipediaService.buscarInformacoesArtista(artistaEncontrado.getNome());
-        DescricaoArtista descricao = ConversorDados.conversor(jsonCompletoWikipedia, DescricaoArtista.class);
+        DescricaoArtista descricao = ConversorDadosService.conversor(jsonCompletoWikipedia, DescricaoArtista.class);
 
         if(descricao == null) {
             System.out.println("Descrição não encontrada");

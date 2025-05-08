@@ -1,4 +1,4 @@
-package edu.rachelpizane.musica_terminal.records;
+package edu.rachelpizane.musica_terminal.record;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
