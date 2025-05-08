@@ -10,4 +10,14 @@ public enum TipoArtista {
     TipoArtista(String tipoArtista) {
         this.tipoArtista = tipoArtista;
     }
+
+    public static TipoArtista converterStringParaEnum(String tipoArtista) {
+        for (TipoArtista tipoArtistaEnum : TipoArtista.values()) {
+            if (tipoArtistaEnum.tipoArtista.equalsIgnoreCase(tipoArtista)) { 
+                return tipoArtistaEnum ;
+            }
+        }
+
+        throw new IllegalArgumentException("Categoria não encontrada: " + tipoArtista);
+    }
 }
